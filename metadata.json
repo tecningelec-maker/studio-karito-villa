@@ -1,0 +1,8 @@
+{
+  "name": "Karito Villa Estudio - Salón de Uñas & Citas Online",
+  "description": "Estudio exclusivo de diseño de uñas, manicura rusa y spa. Agenda citas online, gestiona turnos, realiza abonos seguros y acumula puntos de lealtad.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

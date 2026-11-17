@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-editorial: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  
+  --color-gold-50: #FCF9EE;
+  --color-gold-100: #F7EFCF;
+  --color-gold-200: #EEDFA0;
+  --color-gold-300: #E3CB6F;
+  --color-gold-400: #D8B744;
+  --color-gold-500: #C59B27;
+  --color-gold-600: #A67D1C;
+  --color-gold-700: #845F16;
+  
+  --color-blush-50: #FFF8F9;
+  --color-blush-100: #FFEFF2;
+  --color-blush-200: #FFE0E7;
+  --color-blush-300: #FFC4D1;
+  --color-blush-400: #F79CB0;
+  --color-blush-500: #E7728E;
+  
+  --color-studio-dark: #271A22;
+  --color-studio-charcoal: #3D2B36;
+  --color-studio-muted: #725D6B;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-studio-dark);
+  background-color: #FFFDFB;
+  overflow-x: hidden;
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+}
+
+.font-playfair {
+  font-family: var(--font-serif);
+}
+
+/* Subtle gold shimmer effect for special cards */
+.gold-gradient-border {
+  border-image: linear-gradient(135deg, #F3DF9A 0%, #C59B27 50%, #E7C970 100%) 1;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #9C7215 0%, #C59B27 50%, #855C0E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rose-gold-gradient {
+  background: linear-gradient(135deg, #FDF2F4 0%, #FCE7F3 50%, #FFF1F2 100%);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
