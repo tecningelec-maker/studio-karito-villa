@@ -3,9 +3,7 @@ import { useSalon } from '../context/SalonContext';
 import { TIME_SLOTS } from '../data/initialData';
 import { formatCOP, formatDateSpanish } from '../utils/formatters';
 import {
-  Calendar as CalendarIcon,
   Clock,
-  Sparkles,
   CreditCard,
   QrCode,
   CheckCircle2,
@@ -16,8 +14,6 @@ import {
   Phone,
   User,
   Mail,
-  AlertCircle,
-  HelpCircle,
 } from 'lucide-react';
 
 export const BookingWizard: React.FC = () => {
@@ -42,7 +38,6 @@ export const BookingWizard: React.FC = () => {
     cvv: '891',
   });
   const [phoneQuery, setPhoneQuery] = useState('');
-  const [loyaltyLookupDone, setLoyaltyLookupDone] = useState(false);
 
   const selectedService = services.find((s) => s.id === bookingDraft.serviceId) || services[0];
   const selectedSpecialist = specialists.find((sp) => sp.id === bookingDraft.specialistId) || specialists[0];
@@ -77,7 +72,6 @@ export const BookingWizard: React.FC = () => {
     if (!phoneQuery) return;
     updateBookingDraft({ clientPhone: phoneQuery });
     const profile = getLoyaltyProfile(phoneQuery);
-    setLoyaltyLookupDone(true);
     if (profile) {
       updateBookingDraft({ clientName: profile.name, clientEmail: profile.email });
       showToast(`¡Bienvenida ${profile.name}! Tienes ${profile.points} puntos en tu Club VIP.`);
@@ -88,7 +82,6 @@ export const BookingWizard: React.FC = () => {
 
   const handleApplyLoyaltyDiscount = (points: number, discountCOP: number) => {
     if (bookingDraft.loyaltyPointsToRedeem === points) {
-      // Remove
       updateBookingDraft({ loyaltyPointsToRedeem: 0, loyaltyDiscountCOP: 0 });
       showToast('Descuento de lealtad removido.');
     } else {
@@ -108,7 +101,6 @@ export const BookingWizard: React.FC = () => {
 
     setIsProcessingPayment(true);
 
-    // Simulate real gateway latency & confirmation
     setTimeout(() => {
       setIsProcessingPayment(false);
       confirmBooking(paymentMethod);
@@ -119,12 +111,12 @@ export const BookingWizard: React.FC = () => {
   const remainingInStudio = Math.max(0, finalTotal - selectedService.depositAmount);
 
   return (
-    <section className="py-12 sm:py-16 bg-[#FFFDFB]">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-[#FDF0F4] to-[#FCE4EC]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Stepper Progress Bar */}
         <div className="mb-10">
           <div className="flex items-center justify-between max-w-2xl mx-auto relative">
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 w-full bg-[#FCE7F3] -z-0" />
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 w-full bg-[#F3C5D6] -z-0" />
             <div
               className="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 bg-[#C59B27] transition-all duration-300 -z-0"
               style={{ width: `${((step - 1) / 3) * 100}%` }}
@@ -139,7 +131,7 @@ export const BookingWizard: React.FC = () => {
               const isPast = step > s.num;
               const isCurrent = step === s.num;
               return (
-                <div key={s.num} className="flex flex-col items-center bg-[#FFFDFB] px-2 z-10">
+                <div key={s.num} className="flex flex-col items-center bg-[#FDF0F4] px-2 z-10">
                   <button
                     onClick={() => {
                       if (isPast) setStep(s.num as any);
@@ -149,15 +141,15 @@ export const BookingWizard: React.FC = () => {
                       isCurrent
                         ? 'bg-[#C59B27] text-white ring-4 ring-[#F8ECC5]'
                         : isPast
-                        ? 'bg-[#271A22] text-white'
-                        : 'bg-[#FDF2F4] text-[#A67D1C] border border-[#FAD3DF]'
+                        ? 'bg-[#6E2C47] text-white'
+                        : 'bg-[#FCE4EC] text-[#9E7114] border border-[#EEAFC6]'
                     }`}
                   >
                     {isPast ? <CheckCircle2 className="w-4 h-4" /> : s.num}
                   </button>
                   <span
                     className={`text-[11px] mt-1 font-medium whitespace-nowrap ${
-                      isCurrent ? 'text-[#271A22] font-semibold' : 'text-[#8E7583]'
+                      isCurrent ? 'text-[#2E1621] font-semibold' : 'text-[#785163]'
                     }`}
                   >
                     {s.label}
@@ -170,13 +162,13 @@ export const BookingWizard: React.FC = () => {
 
         {/* STEP 1: SELECT SERVICE */}
         {step === 1 && (
-          <div className="bg-white rounded-2xl border border-[#F7E5EC] p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 sm:p-8 shadow-sm space-y-6">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#C59B27]">Paso 1 de 4</span>
-              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22] mt-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#B88918]">Paso 1 de 4</span>
+              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621] mt-1">
                 Elige el servicio para tu cita
               </h2>
-              <p className="text-xs sm:text-sm text-[#725D6B]">
+              <p className="text-xs sm:text-sm text-[#5C3445]">
                 Selecciona la técnica deseada para reservar tiempo en la agenda del estudio.
               </p>
             </div>
@@ -190,8 +182,8 @@ export const BookingWizard: React.FC = () => {
                     onClick={() => updateBookingDraft({ serviceId: service.id })}
                     className={`relative p-4 rounded-xl border-2 transition-all cursor-pointer flex gap-4 ${
                       isSelected
-                        ? 'border-[#C59B27] bg-[#FFFDF7] shadow-md'
-                        : 'border-[#F7E5EC] hover:border-[#FAD3DF] bg-white'
+                        ? 'border-[#C59B27] bg-gradient-to-br from-[#FCE8EF] to-[#FCF9EE] shadow-md'
+                        : 'border-[#F3C5D6] hover:border-[#E79DB9] bg-[#FFFBFD]'
                     }`}
                   >
                     <img
@@ -202,21 +194,21 @@ export const BookingWizard: React.FC = () => {
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-1">
-                        <h4 className="text-sm font-semibold text-[#271A22] truncate">
+                        <h4 className="text-sm font-semibold text-[#2E1621] truncate">
                           {service.name}
                         </h4>
                         {isSelected && (
                           <CheckCircle2 className="w-4 h-4 text-[#C59B27] shrink-0" />
                         )}
                       </div>
-                      <p className="text-[11px] text-[#725D6B] line-clamp-2 mt-1">
+                      <p className="text-[11px] text-[#5C3445] line-clamp-2 mt-1">
                         {service.description}
                       </p>
                       <div className="mt-2 flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#271A22] tabular-nums">
+                        <span className="font-semibold text-[#2E1621] tabular-nums">
                           {formatCOP(service.price)}
                         </span>
-                        <span className="text-[11px] text-[#A67D1C] font-medium">
+                        <span className="text-[11px] text-[#9E7114] font-medium">
                           Abono {formatCOP(service.depositAmount)}
                         </span>
                       </div>
@@ -229,7 +221,7 @@ export const BookingWizard: React.FC = () => {
             <div className="pt-4 flex justify-end">
               <button
                 onClick={() => setStep(2)}
-                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-lg shadow-sm hover:bg-[#B58A1C] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-lg shadow-sm hover:from-[#B58A1C] hover:to-[#976F12] transition-all cursor-pointer"
               >
                 <span>Continuar a Especialista & Horario</span>
                 <ArrowRight className="w-4 h-4" />
@@ -240,20 +232,20 @@ export const BookingWizard: React.FC = () => {
 
         {/* STEP 2: SELECT SPECIALIST, DATE & TIME */}
         {step === 2 && (
-          <div className="bg-white rounded-2xl border border-[#F7E5EC] p-6 sm:p-8 shadow-sm space-y-8">
+          <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 sm:p-8 shadow-sm space-y-8">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#C59B27]">Paso 2 de 4</span>
-              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22] mt-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#B88918]">Paso 2 de 4</span>
+              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621] mt-1">
                 Selecciona tu Nail Artist & Fecha
               </h2>
-              <p className="text-xs sm:text-sm text-[#725D6B]">
+              <p className="text-xs sm:text-sm text-[#5C3445]">
                 Nuestras artistas atienden de forma exclusiva con reserva anticipada.
               </p>
             </div>
 
             {/* Specialist Picker */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#271A22] mb-3">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#2E1621] mb-3">
                 1. Selecciona a tu Profesional:
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -265,18 +257,19 @@ export const BookingWizard: React.FC = () => {
                       onClick={() => updateBookingDraft({ specialistId: sp.id })}
                       className={`p-4 rounded-xl border-2 text-center transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#C59B27] bg-[#FFFDF7] shadow-md ring-2 ring-[#F8ECC5]'
-                          : 'border-[#F7E5EC] hover:border-[#FAD3DF] bg-white'
+                          ? 'border-[#C59B27] bg-gradient-to-b from-[#FCE8EF] to-[#FCF9EE] shadow-md ring-2 ring-[#F8ECC5]'
+                          : 'border-[#F3C5D6] hover:border-[#E79DB9] bg-[#FFFBFD]'
                       }`}
                     >
                       <img
                         src={sp.avatar}
                         alt={sp.name}
-                        className="w-16 h-16 rounded-full mx-auto object-cover mb-2 border-2 border-white shadow-xs"
+                        referrerPolicy="no-referrer"
+                        className="w-16 h-16 rounded-full mx-auto object-cover mb-2 border-2 border-[#FFF8FA] shadow-xs"
                       />
-                      <h4 className="text-sm font-bold text-[#271A22]">{sp.name}</h4>
-                      <p className="text-[11px] text-[#C59B27] font-medium">{sp.role}</p>
-                      <div className="mt-1 text-[11px] text-[#725D6B]">
+                      <h4 className="text-sm font-bold text-[#2E1621]">{sp.name}</h4>
+                      <p className="text-[11px] text-[#B88918] font-medium">{sp.role}</p>
+                      <div className="mt-1 text-[11px] text-[#5C3445]">
                         ★ {sp.rating} ({sp.reviewsCount} reseñas)
                       </div>
                     </div>
@@ -287,7 +280,7 @@ export const BookingWizard: React.FC = () => {
 
             {/* Date Carousel/Selector */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#271A22] mb-3">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#2E1621] mb-3">
                 2. Selecciona la Fecha:
               </label>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
@@ -300,16 +293,16 @@ export const BookingWizard: React.FC = () => {
                       className={`flex-shrink-0 w-18 py-3 px-2 rounded-xl border text-center transition-all cursor-pointer ${
                         isSelected
                           ? 'border-[#C59B27] bg-[#C59B27] text-white shadow-sm'
-                          : 'border-[#F7E5EC] bg-[#FFF9FA] text-[#5A4552] hover:border-[#FAD3DF]'
+                          : 'border-[#F3C5D6] bg-[#FCE8EF] text-[#5C3445] hover:border-[#E79DB9]'
                       }`}
                     >
-                      <span className="text-[11px] uppercase block tracking-wider font-medium opacity-80">
+                      <span className="text-[11px] uppercase block tracking-wider font-medium opacity-85">
                         {d.dayName}
                       </span>
                       <span className="text-lg font-bold block tabular-nums">
                         {d.dayNumber}
                       </span>
-                      <span className="text-[10px] uppercase block opacity-80">
+                      <span className="text-[10px] uppercase block opacity-85">
                         {d.monthName}
                       </span>
                     </button>
@@ -320,12 +313,12 @@ export const BookingWizard: React.FC = () => {
 
             {/* Time Slot Picker */}
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#271A22]">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#2E1621]">
                   3. Turnos Disponibles para {formatDateSpanish(bookingDraft.date)}:
                 </label>
-                <span className="text-xs text-[#725D6B] flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
+                <span className="text-xs text-[#5C3445] flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-[#B88918]" />
                   Duración aproximada: {selectedService.durationMinutes} min
                 </span>
               </div>
@@ -341,13 +334,13 @@ export const BookingWizard: React.FC = () => {
                       onClick={() => updateBookingDraft({ timeSlot: slot })}
                       className={`py-3 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                         isBooked
-                          ? 'bg-[#F5F2F4] text-[#B09FA9] border border-transparent cursor-not-allowed line-through'
+                          ? 'bg-[#F5DDE6] text-[#9E7887] border border-transparent cursor-not-allowed line-through'
                           : isSelected
-                          ? 'bg-[#271A22] text-white shadow-sm ring-2 ring-[#C59B27]'
-                          : 'bg-[#FFFDFB] text-[#3D2B36] border border-[#EACBD9] hover:bg-[#FDF2F4]'
+                          ? 'bg-[#6E2C47] text-white shadow-sm ring-2 ring-[#C59B27]'
+                          : 'bg-[#FCE8EF] text-[#3D1D2B] border border-[#EBB8CB] hover:bg-[#FAD4E1]'
                       }`}
                     >
-                      <Clock className="w-3.5 h-3.5 opacity-70" />
+                      <Clock className="w-3.5 h-3.5 opacity-75" />
                       <span>{slot}</span>
                       {isBooked && <span className="text-[9px] no-underline block ml-1">(Ocupado)</span>}
                     </button>
@@ -359,7 +352,7 @@ export const BookingWizard: React.FC = () => {
             <div className="pt-4 flex items-center justify-between">
               <button
                 onClick={() => setStep(1)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#725D6B] hover:text-[#271A22]"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#5C3445] hover:text-[#2E1621] cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Volver a Servicios</span>
@@ -367,7 +360,7 @@ export const BookingWizard: React.FC = () => {
 
               <button
                 onClick={() => setStep(3)}
-                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-lg shadow-sm hover:bg-[#B58A1C] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-lg shadow-sm hover:from-[#B58A1C] hover:to-[#976F12] transition-all cursor-pointer"
               >
                 <span>Continuar a Tus Datos</span>
                 <ArrowRight className="w-4 h-4" />
@@ -378,20 +371,20 @@ export const BookingWizard: React.FC = () => {
 
         {/* STEP 3: CLIENT DETAILS & LOYALTY POINTS */}
         {step === 3 && (
-          <div className="bg-white rounded-2xl border border-[#F7E5EC] p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 sm:p-8 shadow-sm space-y-6">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#C59B27]">Paso 3 de 4</span>
-              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22] mt-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#B88918]">Paso 3 de 4</span>
+              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621] mt-1">
                 Tus Datos de Contacto & Club de Lealtad
               </h2>
-              <p className="text-xs sm:text-sm text-[#725D6B]">
+              <p className="text-xs sm:text-sm text-[#5C3445]">
                 Enviaremos la confirmación oficial a tu WhatsApp y correo electrónico.
               </p>
             </div>
 
             {/* Quick Loyalty Phone Checker */}
-            <div className="p-4 bg-gradient-to-r from-[#FFF5F8] to-[#FFF9F2] rounded-xl border border-[#FAD3DF]">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#A67D1C] uppercase tracking-wider mb-2">
+            <div className="p-4 bg-gradient-to-r from-[#FADCE6] to-[#FCF6E8] rounded-xl border border-[#EEAFC6]">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#8E6310] uppercase tracking-wider mb-2">
                 <Award className="w-4 h-4" />
                 <span>¿Eres cliente frecuente? Consulta tus Puntos VIP</span>
               </div>
@@ -401,41 +394,39 @@ export const BookingWizard: React.FC = () => {
                   placeholder="Ej: 3128945672 (Prueba: 3128945672)"
                   value={phoneQuery || bookingDraft.clientPhone}
                   onChange={(e) => setPhoneQuery(e.target.value)}
-                  className="flex-1 px-3 py-2 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                  className="flex-1 px-3 py-2 text-xs rounded-lg bg-[#FFF8FA] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                 />
                 <button
                   type="button"
                   onClick={handlePhoneCheck}
-                  className="px-4 py-2 text-xs font-semibold bg-[#271A22] text-white rounded-lg hover:bg-[#3D2B36] transition-colors"
+                  className="px-4 py-2 text-xs font-semibold bg-[#6E2C47] text-white rounded-lg hover:bg-[#592238] transition-colors cursor-pointer"
                 >
                   Consultar Puntos
                 </button>
               </div>
 
-              {/* Loyalty Benefits Alert if Client exists */}
               {clientLoyalty && (
-                <div className="mt-3 pt-3 border-t border-[#F8D2DF] space-y-2">
+                <div className="mt-3 pt-3 border-t border-[#EEAFC6] space-y-2">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs font-bold text-[#271A22]">
-                        ¡Hola {clientLoyalty.name}! Nivel: <span className="text-[#C59B27]">{clientLoyalty.tier}</span>
+                      <p className="text-xs font-bold text-[#2E1621]">
+                        ¡Hola {clientLoyalty.name}! Nivel: <span className="text-[#9E7114]">{clientLoyalty.tier}</span>
                       </p>
-                      <p className="text-[11px] text-[#725D6B]">
-                        Tienes <strong className="text-[#271A22]">{clientLoyalty.points} puntos</strong> acumulados en tu cuenta.
+                      <p className="text-[11px] text-[#5C3445]">
+                        Tienes <strong className="text-[#2E1621]">{clientLoyalty.points} puntos</strong> acumulados en tu cuenta.
                       </p>
                     </div>
                   </div>
 
-                  {/* Redeem Buttons if sufficient points */}
                   {clientLoyalty.points >= 80 && (
                     <div className="flex flex-wrap gap-2 pt-1">
                       <button
                         type="button"
                         onClick={() => handleApplyLoyaltyDiscount(80, 15000)}
-                        className={`text-xs px-3 py-1.5 rounded-md font-medium border transition-colors ${
+                        className={`text-xs px-3 py-1.5 rounded-md font-medium border transition-colors cursor-pointer ${
                           bookingDraft.loyaltyPointsToRedeem === 80
                             ? 'bg-[#C59B27] text-white border-[#C59B27]'
-                            : 'bg-white text-[#271A22] border-[#C59B27] hover:bg-[#FDF9EE]'
+                            : 'bg-[#FFF8FA] text-[#2E1621] border-[#C59B27] hover:bg-[#FCF9EE]'
                         }`}
                       >
                         {bookingDraft.loyaltyPointsToRedeem === 80
@@ -447,10 +438,10 @@ export const BookingWizard: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleApplyLoyaltyDiscount(150, 30000)}
-                          className={`text-xs px-3 py-1.5 rounded-md font-medium border transition-colors ${
+                          className={`text-xs px-3 py-1.5 rounded-md font-medium border transition-colors cursor-pointer ${
                             bookingDraft.loyaltyPointsToRedeem === 150
                               ? 'bg-[#C59B27] text-white border-[#C59B27]'
-                              : 'bg-white text-[#271A22] border-[#C59B27] hover:bg-[#FDF9EE]'
+                              : 'bg-[#FFF8FA] text-[#2E1621] border-[#C59B27] hover:bg-[#FCF9EE]'
                           }`}
                         >
                           {bookingDraft.loyaltyPointsToRedeem === 150
@@ -467,60 +458,60 @@ export const BookingWizard: React.FC = () => {
             {/* Client Inputs Form */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#271A22] mb-1">
+                <label className="block text-xs font-medium text-[#2E1621] mb-1">
                   Nombre Completo *
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-[#8E7583] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <User className="w-4 h-4 text-[#785163] absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required
                     placeholder="Ej. María Camila Gómez"
                     value={bookingDraft.clientName}
                     onChange={(e) => updateBookingDraft({ clientName: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2.5 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                    className="w-full pl-9 pr-3 py-2.5 text-xs rounded-lg bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#271A22] mb-1">
+                  <label className="block text-xs font-medium text-[#2E1621] mb-1">
                     Número de WhatsApp / Móvil *
                   </label>
                   <div className="relative">
-                    <Phone className="w-4 h-4 text-[#8E7583] absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Phone className="w-4 h-4 text-[#785163] absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="tel"
                       required
                       placeholder="Ej. 3128945672"
                       value={bookingDraft.clientPhone}
                       onChange={(e) => updateBookingDraft({ clientPhone: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs rounded-lg bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#271A22] mb-1">
+                  <label className="block text-xs font-medium text-[#2E1621] mb-1">
                     Correo Electrónico *
                   </label>
                   <div className="relative">
-                    <Mail className="w-4 h-4 text-[#8E7583] absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Mail className="w-4 h-4 text-[#785163] absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="email"
                       required
                       placeholder="ejemplo@correo.com"
                       value={bookingDraft.clientEmail}
                       onChange={(e) => updateBookingDraft({ clientEmail: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2.5 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs rounded-lg bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#271A22] mb-1">
+                <label className="block text-xs font-medium text-[#2E1621] mb-1">
                   Notas Especiales o Preferencias de Diseño (Opcional)
                 </label>
                 <textarea
@@ -528,7 +519,7 @@ export const BookingWizard: React.FC = () => {
                   placeholder="Ej: Tengo retiro de sistema anterior, me gustan los colores nude con destellos dorados..."
                   value={bookingDraft.notes}
                   onChange={(e) => updateBookingDraft({ notes: e.target.value })}
-                  className="w-full p-3 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                  className="w-full p-3 text-xs rounded-lg bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                 />
               </div>
             </div>
@@ -536,7 +527,7 @@ export const BookingWizard: React.FC = () => {
             <div className="pt-4 flex items-center justify-between">
               <button
                 onClick={() => setStep(2)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#725D6B] hover:text-[#271A22]"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#5C3445] hover:text-[#2E1621] cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Volver a Fecha & Hora</span>
@@ -550,7 +541,7 @@ export const BookingWizard: React.FC = () => {
                   }
                   setStep(4);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-lg shadow-sm hover:bg-[#B58A1C] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-lg shadow-sm hover:from-[#B58A1C] hover:to-[#976F12] transition-all cursor-pointer"
               >
                 <span>Continuar a Pasarela de Abono</span>
                 <ArrowRight className="w-4 h-4" />
@@ -561,54 +552,54 @@ export const BookingWizard: React.FC = () => {
 
         {/* STEP 4: PAYMENT GATEWAY (PASARELA DE ABONO) */}
         {step === 4 && (
-          <div className="bg-white rounded-2xl border border-[#F7E5EC] p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 sm:p-8 shadow-sm space-y-6">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#C59B27]">Paso 4 de 4 · Pasarela Segura</span>
-              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22] mt-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#B88918]">Paso 4 de 4 · Pasarela Segura</span>
+              <h2 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621] mt-1">
                 Realiza el abono para confirmar tu turno
               </h2>
-              <p className="text-xs sm:text-sm text-[#725D6B]">
+              <p className="text-xs sm:text-sm text-[#5C3445]">
                 Para garantizar la exclusividad de tu espacio en la agenda, el estudio requiere un abono que se descuenta del valor total del servicio.
               </p>
             </div>
 
             {/* Summary Breakdown Box */}
-            <div className="bg-[#FFFDFB] rounded-xl border border-[#FAD3DF] p-4 sm:p-5 space-y-3">
-              <div className="flex items-center justify-between pb-3 border-b border-[#F7E5EC]">
+            <div className="bg-[#FCE8EF] rounded-xl border border-[#EEAFC6] p-4 sm:p-5 space-y-3">
+              <div className="flex items-center justify-between pb-3 border-b border-[#F3C5D6]">
                 <div>
-                  <h4 className="text-sm font-bold text-[#271A22]">{selectedService.name}</h4>
-                  <p className="text-xs text-[#725D6B]">
+                  <h4 className="text-sm font-bold text-[#2E1621]">{selectedService.name}</h4>
+                  <p className="text-xs text-[#5C3445]">
                     Con {selectedSpecialist.name} · {formatDateSpanish(bookingDraft.date)} a las {bookingDraft.timeSlot}
                   </p>
                 </div>
-                <span className="text-sm font-semibold text-[#271A22] tabular-nums">
+                <span className="text-sm font-semibold text-[#2E1621] tabular-nums">
                   {formatCOP(selectedService.price)}
                 </span>
               </div>
 
               {bookingDraft.loyaltyDiscountCOP > 0 && (
-                <div className="flex items-center justify-between text-xs text-[#C59B27] font-semibold">
+                <div className="flex items-center justify-between text-xs text-[#9E7114] font-semibold">
                   <span>Descuento Club VIP ({bookingDraft.loyaltyPointsToRedeem} pts)</span>
                   <span className="tabular-nums">-{formatCOP(bookingDraft.loyaltyDiscountCOP)}</span>
                 </div>
               )}
 
-              <div className="flex items-center justify-between text-xs text-[#725D6B]">
+              <div className="flex items-center justify-between text-xs text-[#5C3445]">
                 <span>Valor Final del Servicio:</span>
-                <span className="font-medium text-[#271A22] tabular-nums">{formatCOP(finalTotal)}</span>
+                <span className="font-medium text-[#2E1621] tabular-nums">{formatCOP(finalTotal)}</span>
               </div>
 
-              <div className="flex items-center justify-between pt-2 border-t border-[#F7E5EC] bg-[#FFF5F8] -mx-4 -mb-3 p-4 rounded-b-xl">
+              <div className="flex items-center justify-between pt-3 border-t border-[#F0BDD0] bg-[#FADCE6] -mx-4 -mb-4 sm:-mx-5 sm:-mb-5 p-4 sm:p-5 rounded-b-xl">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#A67D1C] font-bold block">
+                  <span className="text-xs uppercase tracking-wider text-[#8E6310] font-bold block">
                     Abono Requerido Hoy:
                   </span>
-                  <span className="text-[11px] text-[#725D6B]">
+                  <span className="text-[11px] text-[#5C3445]">
                     Saldo restante en el estudio: {formatCOP(remainingInStudio)}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-2xl font-bold text-[#C59B27] font-serif tabular-nums">
+                  <span className="text-2xl font-bold text-[#9E7114] font-serif tabular-nums">
                     {formatCOP(selectedService.depositAmount)}
                   </span>
                 </div>
@@ -617,7 +608,7 @@ export const BookingWizard: React.FC = () => {
 
             {/* Payment Method Selector */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#271A22] mb-3">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#2E1621] mb-3">
                 Selecciona tu Método de Pago para el Abono:
               </label>
 
@@ -637,12 +628,12 @@ export const BookingWizard: React.FC = () => {
                       onClick={() => setPaymentMethod(m.id as any)}
                       className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#C59B27] bg-[#FFFDF7] ring-2 ring-[#F8ECC5]'
-                          : 'border-[#F7E5EC] hover:border-[#FAD3DF] bg-white'
+                          ? 'border-[#C59B27] bg-gradient-to-br from-[#FCE8EF] to-[#FCF9EE] ring-2 ring-[#F8ECC5]'
+                          : 'border-[#F3C5D6] hover:border-[#E79DB9] bg-[#FFFBFD]'
                       }`}
                     >
-                      <Icon className={`w-5 h-5 mb-1 ${isSelected ? 'text-[#C59B27]' : 'text-[#8E7583]'}`} />
-                      <span className="text-xs font-semibold block text-[#271A22]">{m.label}</span>
+                      <Icon className={`w-5 h-5 mb-1 ${isSelected ? 'text-[#C59B27]' : 'text-[#785163]'}`} />
+                      <span className="text-xs font-semibold block text-[#2E1621]">{m.label}</span>
                     </button>
                   );
                 })}
@@ -651,41 +642,41 @@ export const BookingWizard: React.FC = () => {
 
             {/* Payment Form Fields */}
             {paymentMethod === 'card' && (
-              <div className="bg-[#FFFDFB] p-4 rounded-xl border border-[#F7E5EC] space-y-3">
-                <div className="flex items-center justify-between text-xs text-[#725D6B] pb-2 border-b border-[#F7E5EC]">
-                  <span className="flex items-center gap-1.5 font-medium text-[#271A22]">
-                    <Lock className="w-3.5 h-3.5 text-emerald-600" />
+              <div className="bg-[#FCE8EF]/65 p-4 rounded-xl border border-[#F3C5D6] space-y-3">
+                <div className="flex items-center justify-between text-xs text-[#5C3445] pb-2 border-b border-[#F3C5D6]">
+                  <span className="flex items-center gap-1.5 font-medium text-[#2E1621]">
+                    <Lock className="w-3.5 h-3.5 text-emerald-700" />
                     Transacción cifrada SSL 256-bit
                   </span>
                   <span>Visa, Mastercard, Amex</span>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-medium text-[#271A22] mb-1">
+                  <label className="block text-[11px] font-medium text-[#2E1621] mb-1">
                     Número de Tarjeta
                   </label>
                   <input
                     type="text"
                     value={cardData.number}
                     onChange={(e) => setCardData({ ...cardData, number: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                    className="w-full px-3 py-2 text-xs rounded-lg bg-[#FFF8FA] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                   />
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="col-span-2">
-                    <label className="block text-[11px] font-medium text-[#271A22] mb-1">
+                    <label className="block text-[11px] font-medium text-[#2E1621] mb-1">
                       Nombre en la Tarjeta
                     </label>
                     <input
                       type="text"
                       value={cardData.name}
                       onChange={(e) => setCardData({ ...cardData, name: e.target.value })}
-                      className="w-full px-3 py-2 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                      className="w-full px-3 py-2 text-xs rounded-lg bg-[#FFF8FA] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-medium text-[#271A22] mb-1">
+                    <label className="block text-[11px] font-medium text-[#2E1621] mb-1">
                       CVV
                     </label>
                     <input
@@ -693,7 +684,7 @@ export const BookingWizard: React.FC = () => {
                       maxLength={4}
                       value={cardData.cvv}
                       onChange={(e) => setCardData({ ...cardData, cvv: e.target.value })}
-                      className="w-full px-3 py-2 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                      className="w-full px-3 py-2 text-xs rounded-lg bg-[#FFF8FA] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                     />
                   </div>
                 </div>
@@ -701,22 +692,22 @@ export const BookingWizard: React.FC = () => {
             )}
 
             {(paymentMethod === 'nequi' || paymentMethod === 'daviplata') && (
-              <div className="bg-[#FFFDFB] p-5 rounded-xl border border-[#F7E5EC] flex flex-col sm:flex-row items-center gap-5">
-                <div className="w-32 h-32 bg-white p-2 rounded-lg border border-[#EACBD9] shadow-xs flex flex-col items-center justify-center text-center">
-                  <QrCode className="w-20 h-20 text-[#271A22]" />
-                  <span className="text-[10px] font-bold text-[#A67D1C] uppercase mt-1">Escanea en App</span>
+              <div className="bg-[#FCE8EF]/65 p-5 rounded-xl border border-[#F3C5D6] flex flex-col sm:flex-row items-center gap-5">
+                <div className="w-32 h-32 bg-[#FFF8FA] p-2 rounded-lg border border-[#EBB8CB] shadow-xs flex flex-col items-center justify-center text-center">
+                  <QrCode className="w-20 h-20 text-[#2E1621]" />
+                  <span className="text-[10px] font-bold text-[#9E7114] uppercase mt-1">Escanea en App</span>
                 </div>
                 <div className="space-y-1 text-center sm:text-left">
-                  <p className="text-xs font-bold text-[#271A22] uppercase tracking-wide">
+                  <p className="text-xs font-bold text-[#2E1621] uppercase tracking-wide">
                     Pago Directo {paymentMethod.toUpperCase()} Karito Villa
                   </p>
-                  <p className="text-xs text-[#725D6B]">
-                    Número de cuenta estudio: <strong className="text-[#271A22] font-mono">312 894 5672</strong>
+                  <p className="text-xs text-[#5C3445]">
+                    Número de cuenta estudio: <strong className="text-[#2E1621] font-mono">312 894 5672</strong>
                   </p>
-                  <p className="text-xs text-[#725D6B]">
-                    Monto exacto de abono: <strong className="text-[#C59B27]">{formatCOP(selectedService.depositAmount)}</strong>
+                  <p className="text-xs text-[#5C3445]">
+                    Monto exacto de abono: <strong className="text-[#9E7114]">{formatCOP(selectedService.depositAmount)}</strong>
                   </p>
-                  <p className="text-[11px] text-[#A67D1C] italic pt-1">
+                  <p className="text-[11px] text-[#9E7114] italic pt-1">
                     Al confirmar, el sistema asocia automáticamente tu comprobante con tu código de reserva.
                   </p>
                 </div>
@@ -724,11 +715,11 @@ export const BookingWizard: React.FC = () => {
             )}
 
             {paymentMethod === 'pse' && (
-              <div className="bg-[#FFFDFB] p-4 rounded-xl border border-[#F7E5EC] space-y-2">
-                <p className="text-xs font-semibold text-[#271A22]">
+              <div className="bg-[#FCE8EF]/65 p-4 rounded-xl border border-[#F3C5D6] space-y-2">
+                <p className="text-xs font-semibold text-[#2E1621]">
                   Selecciona tu entidad bancaria para débito PSE:
                 </p>
-                <select className="w-full px-3 py-2 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]">
+                <select className="w-full px-3 py-2 text-xs rounded-lg bg-[#FFF8FA] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]">
                   <option>Bancolombia</option>
                   <option>Davivienda</option>
                   <option>Banco de Bogotá</option>
@@ -740,11 +731,11 @@ export const BookingWizard: React.FC = () => {
             )}
 
             {/* Final Action Button */}
-            <div className="pt-4 flex items-center justify-between border-t border-[#F7E5EC]">
+            <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[#F3C5D6]">
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#725D6B] hover:text-[#271A22]"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium text-[#5C3445] hover:text-[#2E1621] cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Volver a Datos</span>
@@ -754,7 +745,7 @@ export const BookingWizard: React.FC = () => {
                 type="button"
                 onClick={handleFinalPayment}
                 disabled={isProcessingPayment}
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#B3871E] rounded-lg shadow-md hover:from-[#B58A1C] hover:to-[#9F7414] transition-all cursor-pointer active:scale-98 disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-lg shadow-md hover:from-[#B58A1C] hover:to-[#976F12] transition-all cursor-pointer active:scale-98 disabled:opacity-50"
               >
                 {isProcessingPayment ? (
                   <>

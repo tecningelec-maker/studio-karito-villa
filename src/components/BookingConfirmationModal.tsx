@@ -31,7 +31,6 @@ export const BookingConfirmationModal: React.FC = () => {
       depositAmount: confirmedAppointment.depositAmount,
       remainingAmount: confirmedAppointment.remainingAmount,
     });
-    // Open in new tab or app
     window.open(`https://api.whatsapp.com/send?text=${textEncoded}`, '_blank');
   };
 
@@ -40,10 +39,10 @@ export const BookingConfirmationModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl border border-[#FAD3DF] my-8 animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2E1621]/60 backdrop-blur-xs p-4 overflow-y-auto">
+      <div className="bg-[#FFF8FA] rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl border border-[#F3C5D6] my-8 animate-in zoom-in-95 duration-200">
         {/* Header Ribbon */}
-        <div className="bg-gradient-to-r from-[#C59B27] via-[#D4AF37] to-[#A67D1C] p-6 text-white text-center relative">
+        <div className="bg-gradient-to-r from-[#D982A3] via-[#C59B27] to-[#B06987] p-6 text-white text-center relative">
           <button
             onClick={() => setConfirmedAppointment(null)}
             className="absolute top-4 right-4 p-1.5 bg-black/20 hover:bg-black/40 text-white rounded-full transition-colors cursor-pointer"
@@ -59,7 +58,7 @@ export const BookingConfirmationModal: React.FC = () => {
           <h3 className="font-editorial text-2xl sm:text-3xl font-semibold tracking-wide">
             ¡Reserva Confirmada con Éxito!
           </h3>
-          <p className="text-xs text-white/90 mt-1 uppercase tracking-widest font-medium">
+          <p className="text-xs text-white/95 mt-1 uppercase tracking-widest font-medium">
             Karito Villa (Estudio) · Nail Art de Alta Gama
           </p>
         </div>
@@ -67,62 +66,62 @@ export const BookingConfirmationModal: React.FC = () => {
         {/* Voucher Content */}
         <div className="p-6 sm:p-8 space-y-6">
           {/* Booking Code Banner */}
-          <div className="bg-[#FFF9FA] border border-[#FAD3DF] rounded-2xl p-4 text-center">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#8E7583] block">
+          <div className="bg-[#FCE8EF] border border-[#F3C5D6] rounded-2xl p-4 text-center">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#785163] block">
               Código Único de Reserva
             </span>
-            <span className="font-mono text-2xl sm:text-3xl font-bold text-[#C59B27] tracking-wider block mt-0.5">
+            <span className="font-mono text-2xl sm:text-3xl font-bold text-[#9E7114] tracking-wider block mt-0.5">
               {confirmedAppointment.bookingCode}
             </span>
-            <span className="text-xs text-[#725D6B] block mt-1">
+            <span className="text-xs text-[#5C3445] block mt-1">
               Conserva este código para consultas o cambios en recepción.
             </span>
           </div>
 
           {/* Details Table */}
-          <div className="space-y-3 text-xs border-b border-[#F7E5EC] pb-6">
+          <div className="space-y-3 text-xs border-b border-[#F3C5D6] pb-6">
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#725D6B] flex items-center gap-1.5">
+              <span className="text-[#6E4557] flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#C59B27]" />
                 Servicio:
               </span>
-              <span className="font-semibold text-[#271A22] text-right">
+              <span className="font-semibold text-[#2E1621] text-right">
                 {confirmedAppointment.serviceName}
               </span>
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#725D6B] flex items-center gap-1.5">
+              <span className="text-[#6E4557] flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-[#C59B27]" />
                 Nail Artist:
               </span>
-              <span className="font-semibold text-[#271A22]">
+              <span className="font-semibold text-[#2E1621]">
                 {confirmedAppointment.specialistName}
               </span>
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#725D6B] flex items-center gap-1.5">
+              <span className="text-[#6E4557] flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-[#C59B27]" />
                 Fecha:
               </span>
-              <span className="font-semibold text-[#271A22]">
+              <span className="font-semibold text-[#2E1621]">
                 {formatDateSpanish(confirmedAppointment.date)}
               </span>
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#725D6B] flex items-center gap-1.5">
+              <span className="text-[#6E4557] flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#C59B27]" />
                 Horario:
               </span>
-              <span className="font-semibold text-[#271A22]">
+              <span className="font-semibold text-[#2E1621]">
                 {confirmedAppointment.timeSlot}
               </span>
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#725D6B] flex items-center gap-1.5">
+              <span className="text-[#6E4557] flex items-center gap-1.5">
                 <CreditCard className="w-3.5 h-3.5 text-emerald-600" />
                 Abono Pagado ({confirmedAppointment.paymentMethod.toUpperCase()}):
               </span>
@@ -132,28 +131,28 @@ export const BookingConfirmationModal: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between py-1">
-              <span className="text-[#725D6B]">Saldo a liquidar en el estudio:</span>
-              <span className="font-bold text-[#271A22] tabular-nums">
+              <span className="text-[#6E4557]">Saldo a liquidar en el estudio:</span>
+              <span className="font-bold text-[#2E1621] tabular-nums">
                 {formatCOP(confirmedAppointment.remainingAmount)}
               </span>
             </div>
           </div>
 
           {/* Loyalty Reward Banner */}
-          <div className="p-3 bg-[#FCF9EE] rounded-xl border border-[#F7EFCF] flex items-center gap-3">
+          <div className="p-3 bg-[#FCF9EE] rounded-xl border border-[#F3DF9A] flex items-center gap-3">
             <Award className="w-6 h-6 text-[#C59B27] shrink-0" />
             <div className="text-left text-xs">
-              <p className="font-bold text-[#271A22]">
+              <p className="font-bold text-[#2E1621]">
                 ¡Has acumulado +{confirmedAppointment.loyaltyPointsEarned} Puntos VIP!
               </p>
-              <p className="text-[#725D6B] text-[11px]">
+              <p className="text-[#6E4557] text-[11px]">
                 Podrás redimirlos en tu siguiente visita para manicuras y nail art sin costo.
               </p>
             </div>
           </div>
 
           {/* Studio Location Note */}
-          <div className="flex items-start gap-2 text-xs text-[#725D6B]">
+          <div className="flex items-start gap-2 text-xs text-[#6E4557]">
             <MapPin className="w-4 h-4 text-[#C59B27] shrink-0 mt-0.5" />
             <span>
               <strong>Ubicación:</strong> Cra. 43A #1 Sur-220, El Poblado, Medellín. Se ruega llegar 5 minutos antes para brindarte una copa de bienvenida o infusión botánica.
@@ -173,7 +172,7 @@ export const BookingConfirmationModal: React.FC = () => {
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={handlePrint}
-                className="py-3 px-4 bg-white border border-[#EACBD9] text-[#5A4552] hover:bg-[#FDF2F4] rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                className="py-3 px-4 bg-[#FCE4EC] border border-[#EBB8CB] text-[#5C3445] hover:bg-[#FAD4E1] rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
                 <Printer className="w-4 h-4" />
                 <span>Imprimir / PDF</span>
@@ -184,9 +183,9 @@ export const BookingConfirmationModal: React.FC = () => {
                   setConfirmedAppointment(null);
                   setActiveTab('loyalty');
                 }}
-                className="py-3 px-4 bg-[#271A22] text-white hover:bg-[#3D2B36] rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                className="py-3 px-4 bg-[#6E2C47] text-white hover:bg-[#592238] rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
-                <Award className="w-4 h-4 text-[#C59B27]" />
+                <Award className="w-4 h-4 text-[#F2D98D]" />
                 <span>Ver Mi Club VIP</span>
               </button>
             </div>

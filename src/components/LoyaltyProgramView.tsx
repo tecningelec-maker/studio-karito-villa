@@ -5,26 +5,20 @@ import {
   Award,
   Crown,
   Sparkles,
-  Search,
   CheckCircle2,
-  Gift,
-  ArrowRight,
-  TrendingUp,
   Clock,
   Phone,
 } from 'lucide-react';
 
 export const LoyaltyProgramView: React.FC = () => {
   const {
-    loyaltyProfiles,
     loyaltyRewards,
     getLoyaltyProfile,
     redeemPointsForDiscount,
-    startBookingWithService,
     showToast,
   } = useSalon();
 
-  const [phoneSearch, setPhoneSearch] = useState('3128945672'); // Seeded demo client
+  const [phoneSearch, setPhoneSearch] = useState('3128945672');
   const [activeProfile, setActiveProfile] = useState(() => getLoyaltyProfile('3128945672'));
 
   const handleSearch = (e: React.FormEvent) => {
@@ -39,7 +33,7 @@ export const LoyaltyProgramView: React.FC = () => {
     }
   };
 
-  const handleClaimReward = (rewardId: string, requiredPoints: number, discountCOP: number) => {
+  const handleClaimReward = (requiredPoints: number, discountCOP: number) => {
     if (!activeProfile) {
       showToast('Por favor consulta tu número de teléfono primero.', 'error');
       return;
@@ -57,7 +51,7 @@ export const LoyaltyProgramView: React.FC = () => {
   };
 
   return (
-    <div className="py-12 sm:py-16 bg-[#FFFDFB]">
+    <div className="py-12 sm:py-16 bg-gradient-to-b from-[#FDF0F4] to-[#FCE4EC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
@@ -68,17 +62,17 @@ export const LoyaltyProgramView: React.FC = () => {
             </span>
           </div>
 
-          <h1 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal text-[#271A22] tracking-tight">
+          <h1 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-normal text-[#2E1621] tracking-tight [text-wrap:balance]">
             Premia tu fidelidad con tratamientos exclusivos
           </h1>
-          <p className="mt-3 text-sm sm:text-base text-[#725D6B] font-light">
+          <p className="mt-3 text-sm sm:text-base text-[#5C3445] font-light">
             Gana 1 punto por cada $1.000 COP invertidos en tu belleza. Canjea descuentos directos, diseños de autor y servicios gratuitos.
           </p>
         </div>
 
         {/* Client Wallet Search Box */}
-        <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[#F7E5EC] p-6 shadow-md">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#271A22] mb-3 flex items-center gap-2">
+        <div className="max-w-2xl mx-auto bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 shadow-md">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#2E1621] mb-3 flex items-center gap-2">
             <Phone className="w-4 h-4 text-[#C59B27]" />
             <span>Consulta tu Billetera de Puntos & Nivel VIP:</span>
           </h3>
@@ -89,18 +83,18 @@ export const LoyaltyProgramView: React.FC = () => {
               placeholder="Ingresa tu número de WhatsApp (Ej: 3128945672)"
               value={phoneSearch}
               onChange={(e) => setPhoneSearch(e.target.value)}
-              className="flex-1 px-4 py-2.5 text-xs sm:text-sm rounded-xl border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+              className="flex-1 px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
             />
             <button
               type="submit"
-              className="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-xl hover:bg-[#B58A1C] transition-colors cursor-pointer"
+              className="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-xl hover:from-[#B58A1C] hover:to-[#976F12] transition-colors cursor-pointer"
             >
               Consultar
             </button>
           </form>
 
           {/* Quick Demo Selector */}
-          <div className="mt-3 flex items-center gap-2 text-[11px] text-[#725D6B]">
+          <div className="mt-3 flex items-center gap-2 text-[11px] text-[#5C3445]">
             <span>Pruebas rápidas:</span>
             <button
               type="button"
@@ -108,7 +102,7 @@ export const LoyaltyProgramView: React.FC = () => {
                 setPhoneSearch('3128945672');
                 setActiveProfile(getLoyaltyProfile('3128945672'));
               }}
-              className="text-[#C59B27] hover:underline cursor-pointer"
+              className="text-[#9E7114] font-semibold hover:underline cursor-pointer"
             >
               María (420 pts)
             </button>
@@ -119,16 +113,16 @@ export const LoyaltyProgramView: React.FC = () => {
                 setPhoneSearch('3156789012');
                 setActiveProfile(getLoyaltyProfile('3156789012'));
               }}
-              className="text-[#C59B27] hover:underline cursor-pointer"
+              className="text-[#9E7114] font-semibold hover:underline cursor-pointer"
             >
               Daniela (650 pts - Diamante)
             </button>
           </div>
         </div>
 
-        {/* Active Member Status Card (If searched) */}
+        {/* Active Member Status Card */}
         {activeProfile && (
-          <div className="max-w-4xl mx-auto bg-gradient-to-br from-[#FFF9FA] via-white to-[#FCF9EE] rounded-3xl border-2 border-[#F3DF9A] p-6 sm:p-8 shadow-xl">
+          <div className="max-w-4xl mx-auto bg-gradient-to-br from-[#FADCE6] via-[#FFF8FA] to-[#FCF6E8] rounded-3xl border-2 border-[#E7C970] p-6 sm:p-8 shadow-xl">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               <div className="md:col-span-2 space-y-3">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#C59B27] text-white text-xs font-semibold rounded-full uppercase tracking-wider">
@@ -136,21 +130,21 @@ export const LoyaltyProgramView: React.FC = () => {
                   <span>Miembro Nivel {activeProfile.tier}</span>
                 </div>
 
-                <h2 className="font-editorial text-3xl font-bold text-[#271A22]">
+                <h2 className="font-editorial text-3xl font-bold text-[#2E1621]">
                   {activeProfile.name}
                 </h2>
 
-                <p className="text-xs text-[#725D6B]">
-                  WhatsApp: <strong className="text-[#271A22]">{activeProfile.phone}</strong> · {activeProfile.totalAppointments} citas completadas en Karito Villa
+                <p className="text-xs text-[#5C3445]">
+                  WhatsApp: <strong className="text-[#2E1621]">{activeProfile.phone}</strong> · {activeProfile.totalAppointments} citas completadas en Karito Villa
                 </p>
 
                 {/* Progress bar to next tier */}
                 <div className="pt-2">
-                  <div className="flex justify-between text-xs font-medium text-[#725D6B] mb-1">
+                  <div className="flex justify-between text-xs font-medium text-[#5C3445] mb-1">
                     <span>Progreso de Nivel</span>
                     <span>{activeProfile.points} / 500 Puntos para Nivel Diamante</span>
                   </div>
-                  <div className="h-2 w-full bg-[#FCE7F3] rounded-full overflow-hidden">
+                  <div className="h-2.5 w-full bg-[#F6C8D9] rounded-full overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-[#C59B27] to-[#D4AF37] rounded-full transition-all duration-500"
                       style={{ width: `${Math.min(100, (activeProfile.points / 500) * 100)}%` }}
@@ -160,14 +154,14 @@ export const LoyaltyProgramView: React.FC = () => {
               </div>
 
               {/* Big Points Badge */}
-              <div className="bg-white p-6 rounded-2xl border border-[#FAD3DF] text-center shadow-sm">
-                <span className="text-xs uppercase tracking-wider text-[#A67D1C] font-semibold block">
+              <div className="bg-[#FFF8FA] p-6 rounded-2xl border border-[#F3C5D6] text-center shadow-sm">
+                <span className="text-xs uppercase tracking-wider text-[#9E7114] font-semibold block">
                   Puntos Disponibles
                 </span>
-                <span className="font-serif text-5xl font-bold text-[#C59B27] block my-1 tabular-nums">
+                <span className="font-serif text-5xl font-bold text-[#B88918] block my-1 tabular-nums">
                   {activeProfile.points}
                 </span>
-                <span className="text-[11px] text-[#725D6B] block">
+                <span className="text-[11px] text-[#5C3445] block">
                   Equivalente a hasta {formatCOP(Math.floor(activeProfile.points / 5) * 1000)} en beneficios
                 </span>
               </div>
@@ -175,8 +169,8 @@ export const LoyaltyProgramView: React.FC = () => {
 
             {/* Points History */}
             {activeProfile.history.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-[#F7E5EC]">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#271A22] mb-3 flex items-center gap-2">
+              <div className="mt-8 pt-6 border-t border-[#F0BDD0]">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#2E1621] mb-3 flex items-center gap-2">
                   <Clock className="w-4 h-4 text-[#C59B27]" />
                   <span>Historial de Movimientos Recientes</span>
                 </h4>
@@ -185,15 +179,15 @@ export const LoyaltyProgramView: React.FC = () => {
                   {activeProfile.history.slice(0, 4).map((tx) => (
                     <div
                       key={tx.id}
-                      className="flex items-center justify-between text-xs py-2 px-3 bg-white/70 rounded-lg border border-[#FBF0F4]"
+                      className="flex items-center justify-between text-xs py-2.5 px-3.5 bg-[#FFF8FA]/85 rounded-lg border border-[#F3C5D6]"
                     >
                       <div>
-                        <span className="font-medium text-[#271A22] block">{tx.description}</span>
-                        <span className="text-[10px] text-[#8E7583]">{tx.date}</span>
+                        <span className="font-medium text-[#2E1621] block">{tx.description}</span>
+                        <span className="text-[10px] text-[#785163]">{tx.date}</span>
                       </div>
                       <span
                         className={`font-bold tabular-nums ${
-                          tx.points > 0 ? 'text-emerald-600' : 'text-rose-600'
+                          tx.points > 0 ? 'text-emerald-700' : 'text-rose-700'
                         }`}
                       >
                         {tx.points > 0 ? `+${tx.points}` : tx.points} pts
@@ -208,21 +202,21 @@ export const LoyaltyProgramView: React.FC = () => {
 
         {/* 3 VIP Tiers Explanation */}
         <div>
-          <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22] text-center mb-8">
+          <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621] text-center mb-8">
             Niveles de Membresía VIP
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Tier 1 */}
-            <div className="bg-white rounded-2xl border border-[#FAD3DF] p-6 text-left space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FFF5F8] flex items-center justify-center text-[#F472B6]">
+            <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 text-left space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#FADCE6] flex items-center justify-center text-[#B83B6B]">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs text-[#8E7583] font-semibold uppercase tracking-wider">0 a 199 Puntos</span>
-                <h4 className="text-xl font-bold text-[#271A22] font-serif">Rosa Pastel</h4>
+                <span className="text-xs text-[#785163] font-semibold uppercase tracking-wider">0 a 199 Puntos</span>
+                <h4 className="text-xl font-bold text-[#2E1621] font-serif">Rosa Pastel</h4>
               </div>
-              <ul className="text-xs text-[#5A4552] space-y-2">
+              <ul className="text-xs text-[#5C3445] space-y-2">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#C59B27]" />
                   <span>50 Puntos de bienvenida en tu primera cita</span>
@@ -239,18 +233,18 @@ export const LoyaltyProgramView: React.FC = () => {
             </div>
 
             {/* Tier 2 */}
-            <div className="bg-gradient-to-b from-[#FFFDF7] to-white rounded-2xl border-2 border-[#C59B27] p-6 text-left space-y-4 shadow-md relative">
+            <div className="bg-gradient-to-b from-[#FCF6E8] to-[#FFF8FA] rounded-2xl border-2 border-[#C59B27] p-6 text-left space-y-4 shadow-md relative">
               <div className="absolute -top-3 right-4 bg-[#C59B27] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full">
                 Más Popular
               </div>
-              <div className="w-10 h-10 rounded-xl bg-[#FCF9EE] flex items-center justify-center text-[#C59B27]">
+              <div className="w-10 h-10 rounded-xl bg-[#F7EFCF] flex items-center justify-center text-[#B88918]">
                 <Award className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xs text-[#A67D1C] font-semibold uppercase tracking-wider">200 a 499 Puntos</span>
-                <h4 className="text-xl font-bold text-[#271A22] font-serif">Oro Rosa</h4>
+                <span className="text-xs text-[#9E7114] font-semibold uppercase tracking-wider">200 a 499 Puntos</span>
+                <h4 className="text-xl font-bold text-[#2E1621] font-serif">Oro Rosa</h4>
               </div>
-              <ul className="text-xs text-[#5A4552] space-y-2">
+              <ul className="text-xs text-[#5C3445] space-y-2">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#C59B27]" />
                   <span>Multiplicador 1.2x en acumulación de puntos</span>
@@ -267,15 +261,15 @@ export const LoyaltyProgramView: React.FC = () => {
             </div>
 
             {/* Tier 3 */}
-            <div className="bg-white rounded-2xl border border-[#FAD3DF] p-6 text-left space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-[#FFF9FA] flex items-center justify-center text-[#271A22]">
-                <Crown className="w-5 h-5 text-[#C59B27]" />
+            <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 text-left space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#FADCE6] flex items-center justify-center text-[#6E2C47]">
+                <Crown className="w-5 h-5 text-[#B88918]" />
               </div>
               <div>
-                <span className="text-xs text-[#8E7583] font-semibold uppercase tracking-wider">500+ Puntos</span>
-                <h4 className="text-xl font-bold text-[#271A22] font-serif">Diamante Karito</h4>
+                <span className="text-xs text-[#785163] font-semibold uppercase tracking-wider">500+ Puntos</span>
+                <h4 className="text-xl font-bold text-[#2E1621] font-serif">Diamante Karito</h4>
               </div>
-              <ul className="text-xs text-[#5A4552] space-y-2">
+              <ul className="text-xs text-[#5C3445] space-y-2">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#C59B27]" />
                   <span>Prioridad exclusiva de agenda en horarios alta demanda</span>
@@ -296,10 +290,10 @@ export const LoyaltyProgramView: React.FC = () => {
         {/* Rewards Redeem Catalog */}
         <div className="pt-6">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22]">
+            <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621]">
               Catálogo de Recompensas Disponibles
             </h3>
-            <p className="text-xs sm:text-sm text-[#725D6B] mt-1">
+            <p className="text-xs sm:text-sm text-[#5C3445] mt-1">
               Canjea tus puntos para obtener descuentos inmediatos o añadirlos a tu próxima cita.
             </p>
           </div>
@@ -310,42 +304,42 @@ export const LoyaltyProgramView: React.FC = () => {
               return (
                 <div
                   key={reward.id}
-                  className="bg-white rounded-2xl border border-[#F7E5EC] p-6 flex flex-col justify-between hover:shadow-lg transition-all"
+                  className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 flex flex-col justify-between hover:shadow-lg transition-all"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[11px] font-semibold text-[#A67D1C] uppercase tracking-wider">
+                      <span className="text-[11px] font-semibold text-[#9E7114] uppercase tracking-wider">
                         {reward.tag}
                       </span>
-                      <span className="text-xs font-bold text-[#C59B27] tabular-nums">
+                      <span className="text-xs font-bold text-[#B88918] tabular-nums">
                         {reward.pointsRequired} Puntos
                       </span>
                     </div>
 
-                    <h4 className="text-base font-bold text-[#271A22] mb-1">
+                    <h4 className="text-base font-bold text-[#2E1621] mb-1">
                       {reward.title}
                     </h4>
 
-                    <p className="text-xs text-[#725D6B] leading-relaxed">
+                    <p className="text-xs text-[#5C3445] leading-relaxed">
                       {reward.description}
                     </p>
                   </div>
 
-                  <div className="pt-6 mt-4 border-t border-[#FBF0F4] flex items-center justify-between">
+                  <div className="pt-6 mt-4 border-t border-[#F7DCE6] flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-[#8E7583] block">Equivalente</span>
-                      <span className="text-sm font-bold text-[#271A22] tabular-nums">
+                      <span className="text-[10px] text-[#785163] block">Equivalente</span>
+                      <span className="text-sm font-bold text-[#2E1621] tabular-nums">
                         {formatCOP(reward.discountCOP)}
                       </span>
                     </div>
 
                     <button
-                      onClick={() => handleClaimReward(reward.id, reward.pointsRequired, reward.discountCOP)}
+                      onClick={() => handleClaimReward(reward.pointsRequired, reward.discountCOP)}
                       disabled={!canAfford}
                       className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                         canAfford
-                          ? 'bg-[#C59B27] text-white hover:bg-[#B58A1C]'
-                          : 'bg-[#FDF2F4] text-[#B09FA9] cursor-not-allowed'
+                          ? 'bg-gradient-to-r from-[#C59B27] to-[#AD8218] text-white hover:from-[#B58A1C] hover:to-[#976F12]'
+                          : 'bg-[#FADCE6] text-[#9E7887] cursor-not-allowed'
                       }`}
                     >
                       {canAfford ? 'Canjear Ahora' : 'Puntos Insuficientes'}

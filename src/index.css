@@ -4,7 +4,7 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-editorial: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  
+
   --color-gold-50: #FCF9EE;
   --color-gold-100: #F7EFCF;
   --color-gold-200: #EEDFA0;
@@ -13,23 +13,23 @@
   --color-gold-500: #C59B27;
   --color-gold-600: #A67D1C;
   --color-gold-700: #845F16;
-  
-  --color-blush-50: #FFF8F9;
-  --color-blush-100: #FFEFF2;
-  --color-blush-200: #FFE0E7;
-  --color-blush-300: #FFC4D1;
-  --color-blush-400: #F79CB0;
-  --color-blush-500: #E7728E;
-  
-  --color-studio-dark: #271A22;
-  --color-studio-charcoal: #3D2B36;
-  --color-studio-muted: #725D6B;
+
+  --color-blush-50: #FDF0F4;
+  --color-blush-100: #FCE4EC;
+  --color-blush-200: #FAD4E1;
+  --color-blush-300: #F6B8CE;
+  --color-blush-400: #EE93B4;
+  --color-blush-500: #DB6D95;
+
+  --color-studio-dark: #2E1621;
+  --color-studio-charcoal: #522D3D;
+  --color-studio-muted: #785163;
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--color-studio-dark);
-  background-color: #FFFDFB;
+  background-color: #FDF0F4;
   overflow-x: hidden;
 }
 
@@ -53,7 +53,7 @@ body {
 }
 
 .rose-gold-gradient {
-  background: linear-gradient(135deg, #FDF2F4 0%, #FCE7F3 50%, #FFF1F2 100%);
+  background: linear-gradient(135deg, #FCE4EC 0%, #FAD4E1 50%, #FDF0F4 100%);
 }
 
 @media print {

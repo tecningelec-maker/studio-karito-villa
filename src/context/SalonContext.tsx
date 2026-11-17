@@ -48,6 +48,17 @@ interface SalonContextType {
   startBookingWithService: (serviceId: string) => void;
   resetBookingDraft: () => void;
   confirmBooking: (paymentMethod: 'card' | 'nequi' | 'daviplata' | 'pse') => Appointment;
+  createManualAppointment: (data: {
+    clientName: string;
+    clientPhone: string;
+    clientEmail: string;
+    serviceId: string;
+    specialistId: string;
+    date: string;
+    timeSlot: string;
+    notes: string;
+    depositPaid: boolean;
+  }) => Appointment;
 
   // Appointment Actions
   updateAppointmentStatus: (id: string, newStatus: AppointmentStatus) => void;
@@ -334,6 +345,54 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return newAppointment;
   };
 
+  const createManualAppointment = (data: {
+    clientName: string;
+    clientPhone: string;
+    clientEmail: string;
+    serviceId: string;
+    specialistId: string;
+    date: string;
+    timeSlot: string;
+    notes: string;
+    depositPaid: boolean;
+  }): Appointment => {
+    const service = INITIAL_SERVICES.find((s) => s.id === data.serviceId) || INITIAL_SERVICES[0];
+    const specialist = SPECIALISTS.find((sp) => sp.id === data.specialistId) || SPECIALISTS[0];
+    const depositAmount = data.depositPaid ? service.depositAmount : 0;
+    const remainingAmount = Math.max(0, service.price - depositAmount);
+    const bookingCode = generateBookingCode();
+    const pointsToEarn = Math.round(service.price / 1000);
+
+    const newAppointment: Appointment = {
+      id: `apt-${Date.now()}`,
+      bookingCode,
+      clientName: data.clientName,
+      clientPhone: data.clientPhone,
+      clientEmail: data.clientEmail,
+      serviceId: service.id,
+      serviceName: service.name,
+      specialistId: specialist.id,
+      specialistName: specialist.name,
+      date: data.date,
+      timeSlot: data.timeSlot,
+      totalPrice: service.price,
+      depositAmount,
+      remainingAmount,
+      status: data.depositPaid ? 'confirmed' : 'pending_deposit',
+      notes: data.notes,
+      loyaltyPointsUsed: 0,
+      loyaltyDiscount: 0,
+      loyaltyPointsEarned: pointsToEarn,
+      paymentMethod: 'card',
+      paymentReference: data.depositPaid ? `REC-${Math.floor(100000 + Math.random() * 900000)}` : 'PENDIENTE',
+      createdAt: new Date().toISOString(),
+    };
+
+    setAppointments((prev) => [newAppointment, ...prev]);
+    showToast(`Turno ${bookingCode} registrado con éxito para ${data.clientName}`);
+    return newAppointment;
+  };
+
   const updateAppointmentStatus = (id: string, newStatus: AppointmentStatus) => {
     setAppointments((prev) =>
       prev.map((apt) => (apt.id === id ? { ...apt, status: newStatus } : apt))
@@ -385,6 +444,7 @@ export const SalonProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         startBookingWithService,
         resetBookingDraft,
         confirmBooking,
+        createManualAppointment,
         updateAppointmentStatus,
         cancelAppointment,
         rescheduleAppointment,

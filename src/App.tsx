@@ -10,22 +10,22 @@ import { AdminAgendaDashboard } from './components/AdminAgendaDashboard';
 import { GalleryShowcase } from './components/GalleryShowcase';
 import { BookingConfirmationModal } from './components/BookingConfirmationModal';
 import { Footer } from './components/Footer';
-import { Sparkles, Calendar, Award, Star, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Calendar, Star, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const MainContent: React.FC = () => {
   const { activeTab, setActiveTab, toast } = useSalon();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFFDFB] text-[#271A22]">
+    <div className="min-h-screen flex flex-col bg-[#FDF0F4] text-[#2E1621]">
       {/* Toast Notification Banner */}
       {toast && (
         <div className="fixed bottom-5 right-5 z-50 animate-in slide-in-from-bottom-5 duration-300">
           <div
             className={`flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl text-xs font-medium border ${
               toast.type === 'error'
-                ? 'bg-rose-50 text-rose-900 border-rose-200'
+                ? 'bg-[#FFE4EB] text-[#881337] border-[#FDA4AF]'
                 : toast.type === 'info'
-                ? 'bg-blue-50 text-blue-900 border-blue-200'
+                ? 'bg-[#FCE8EF] text-[#5C3445] border-[#F3C5D6]'
                 : 'bg-[#FCF9EE] text-[#845F16] border-[#F3DF9A]'
             }`}
           >
@@ -51,70 +51,70 @@ const MainContent: React.FC = () => {
             <GalleryShowcase />
 
             {/* Client Testimonials Section */}
-            <section className="py-16 bg-[#FFF9FA] border-t border-[#F7E5EC]">
+            <section className="py-16 bg-gradient-to-b from-[#FCE8EF] to-[#FDF0F4] border-t border-[#F3C5D6]">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-2xl mx-auto mb-10">
-                  <span className="text-xs font-semibold tracking-widest uppercase text-[#C59B27] block mb-2">
+                  <span className="text-xs font-semibold tracking-widest uppercase text-[#B88918] block mb-2">
                     Testimonios Reales
                   </span>
-                  <h2 className="font-editorial text-3xl sm:text-4xl font-normal text-[#271A22]">
+                  <h2 className="font-editorial text-3xl sm:text-4xl font-normal text-[#2E1621] [text-wrap:balance]">
                     La experiencia contada por nuestras clientas
                   </h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-white p-6 rounded-2xl border border-[#FAD3DF] shadow-xs space-y-3">
+                  <div className="bg-[#FFF8FA] p-6 rounded-2xl border border-[#F3C5D6] shadow-xs space-y-3">
                     <div className="flex text-[#C59B27]">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-xs text-[#5A4552] italic leading-relaxed">
+                    <p className="text-xs text-[#5C3445] italic leading-relaxed">
                       "La manicura rusa de Karito Villa es inigualable. Mis uñas duran 4 semanas intactas sin un solo levantamiento. Además poder apartar el turno con el abono en Nequi y recibir todo por WhatsApp hace que sea súper organizado."
                     </p>
-                    <div className="pt-2 border-t border-[#FBF0F4] text-xs">
-                      <strong className="text-[#271A22] block font-semibold">María Camila Gómez</strong>
-                      <span className="text-[11px] text-[#A67D1C]">Clienta VIP Oro Rosa (7 visitas)</span>
+                    <div className="pt-2 border-t border-[#F7DCE6] text-xs">
+                      <strong className="text-[#2E1621] block font-semibold">María Camila Gómez</strong>
+                      <span className="text-[11px] text-[#9E7114]">Clienta VIP Oro Rosa · 7 visitas</span>
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 rounded-2xl border border-[#FAD3DF] shadow-xs space-y-3">
+                  <div className="bg-[#FFF8FA] p-6 rounded-2xl border border-[#F3C5D6] shadow-xs space-y-3">
                     <div className="flex text-[#C59B27]">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-xs text-[#5A4552] italic leading-relaxed">
+                    <p className="text-xs text-[#5C3445] italic leading-relaxed">
                       "Tenía miedo de los esculpidos porque en otros lugares me debilitaban la uña natural. Aquí Valentina me hizo Soft Gel y fue una maravilla: liviano, delicado y con un nail art precioso con pan de oro."
                     </p>
-                    <div className="pt-2 border-t border-[#FBF0F4] text-xs">
-                      <strong className="text-[#271A22] block font-semibold">Laura Restrepo</strong>
-                      <span className="text-[11px] text-[#A67D1C]">Clienta Nivel Rosa Pastel</span>
+                    <div className="pt-2 border-t border-[#F7DCE6] text-xs">
+                      <strong className="text-[#2E1621] block font-semibold">Laura Restrepo</strong>
+                      <span className="text-[11px] text-[#9E7114]">Clienta Nivel Rosa Pastel</span>
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 rounded-2xl border border-[#FAD3DF] shadow-xs space-y-3">
+                  <div className="bg-[#FFF8FA] p-6 rounded-2xl border border-[#F3C5D6] shadow-xs space-y-3">
                     <div className="flex text-[#C59B27]">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-xs text-[#5A4552] italic leading-relaxed">
+                    <p className="text-xs text-[#5C3445] italic leading-relaxed">
                       "El ritual de pedicura spa en la tina dorada con pétalos de rosas y parafina caliente es el mejor descanso de la semana. Ya he canjeado 2 servicios gratis con los puntos del Club VIP."
                     </p>
-                    <div className="pt-2 border-t border-[#FBF0F4] text-xs">
-                      <strong className="text-[#271A22] block font-semibold">Daniela Salazar</strong>
-                      <span className="text-[11px] text-[#A67D1C]">Miembro Diamante Karito (12 visitas)</span>
+                    <div className="pt-2 border-t border-[#F7DCE6] text-xs">
+                      <strong className="text-[#2E1621] block font-semibold">Daniela Salazar</strong>
+                      <span className="text-[11px] text-[#9E7114]">Miembro Diamante Karito · 12 visitas</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Bottom Call to Action */}
-                <div className="mt-12 text-center bg-gradient-to-r from-[#FFF5F8] via-[#FCF9EE] to-[#FFF5F8] p-8 rounded-3xl border border-[#FAD3DF] max-w-3xl mx-auto">
-                  <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#271A22]">
+                <div className="mt-12 text-center bg-gradient-to-r from-[#FADCE6] via-[#FDF2DE] to-[#FADCE6] p-8 rounded-3xl border border-[#EEAFC6] max-w-3xl mx-auto shadow-sm">
+                  <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#2E1621]">
                     ¿Lista para vivir la experiencia Karito Villa?
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#725D6B] mt-2 max-w-lg mx-auto">
+                  <p className="text-xs sm:text-sm text-[#5C3445] mt-2 max-w-lg mx-auto">
                     Selecciona tu horario favorito en tiempo real. Abono seguro y confirmación inmediata en tu celular.
                   </p>
                   <button
@@ -122,7 +122,7 @@ const MainContent: React.FC = () => {
                       setActiveTab('booking');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="mt-5 inline-flex items-center gap-2 px-8 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-xl shadow-sm hover:bg-[#B58A1C] transition-all cursor-pointer"
+                    className="mt-5 inline-flex items-center gap-2 px-8 py-3 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-xl shadow-sm hover:from-[#B58A1C] hover:to-[#976F12] transition-all cursor-pointer"
                   >
                     <Calendar className="w-4 h-4" />
                     <span>Reservar Mi Turno Ahora</span>

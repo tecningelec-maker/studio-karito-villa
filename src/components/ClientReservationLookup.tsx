@@ -5,17 +5,11 @@ import { Appointment } from '../types';
 import { TIME_SLOTS } from '../data/initialData';
 import {
   Search,
-  Calendar,
-  Clock,
-  User,
-  CreditCard,
   Share2,
   Printer,
   XCircle,
   AlertCircle,
-  CheckCircle2,
   Edit2,
-  Sparkles,
 } from 'lucide-react';
 
 export const ClientReservationLookup: React.FC = () => {
@@ -32,7 +26,6 @@ export const ClientReservationLookup: React.FC = () => {
   );
   const [hasSearched, setHasSearched] = useState(true);
 
-  // Reschedule modal state
   const [reschedulingApt, setReschedulingApt] = useState<Appointment | null>(null);
   const [newDate, setNewDate] = useState('');
   const [newSlot, setNewSlot] = useState('');
@@ -76,43 +69,43 @@ export const ClientReservationLookup: React.FC = () => {
   };
 
   return (
-    <div className="py-12 sm:py-16 bg-[#FFFDFB]">
+    <div className="py-12 sm:py-16 bg-gradient-to-b from-[#FDF0F4] to-[#FCE4EC]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto">
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#C59B27] block mb-2">
+          <span className="text-xs font-semibold tracking-widest uppercase text-[#B88918] block mb-2">
             Gestión de Clientes
           </span>
-          <h1 className="font-editorial text-3xl sm:text-4xl font-normal text-[#271A22] tracking-tight">
+          <h1 className="font-editorial text-3xl sm:text-4xl font-normal text-[#2E1621] tracking-tight">
             Consulta y gestiona tu reserva
           </h1>
-          <p className="mt-2 text-xs sm:text-sm text-[#725D6B]">
+          <p className="mt-2 text-xs sm:text-sm text-[#5C3445]">
             Ingresa tu código de reserva (ej: KV-8831B) o número de WhatsApp registrado para ver los detalles, reagendar o descargar tu comprobante.
           </p>
         </div>
 
         {/* Search Bar */}
-        <div className="bg-white rounded-2xl border border-[#F7E5EC] p-6 shadow-md">
+        <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-6 shadow-md">
           <form onSubmit={handleSearch} className="flex gap-2">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-[#8E7583] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#785163] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Código (KV-8831B) o teléfono celular..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm rounded-xl bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
               />
             </div>
             <button
               type="submit"
-              className="px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-xl hover:bg-[#B58A1C] transition-colors cursor-pointer"
+              className="px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-xl hover:from-[#B58A1C] hover:to-[#976F12] transition-colors cursor-pointer"
             >
               Buscar
             </button>
           </form>
 
-          <div className="mt-2 text-[11px] text-[#725D6B] flex items-center gap-2">
+          <div className="mt-2 text-[11px] text-[#5C3445] flex items-center gap-2">
             <span>Pruebas rápidas:</span>
             <button
               type="button"
@@ -120,7 +113,7 @@ export const ClientReservationLookup: React.FC = () => {
                 setQuery('KV-8831B');
                 setSearchResults(findAppointmentByCodeOrPhone('KV-8831B'));
               }}
-              className="text-[#C59B27] hover:underline cursor-pointer"
+              className="text-[#9E7114] font-semibold hover:underline cursor-pointer"
             >
               KV-8831B
             </button>
@@ -131,7 +124,7 @@ export const ClientReservationLookup: React.FC = () => {
                 setQuery('KV-4190C');
                 setSearchResults(findAppointmentByCodeOrPhone('KV-4190C'));
               }}
-              className="text-[#C59B27] hover:underline cursor-pointer"
+              className="text-[#9E7114] font-semibold hover:underline cursor-pointer"
             >
               KV-4190C
             </button>
@@ -142,24 +135,24 @@ export const ClientReservationLookup: React.FC = () => {
         {hasSearched && (
           <div className="space-y-4">
             {searchResults.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-[#F7E5EC] p-8 text-center text-xs text-[#725D6B]">
+              <div className="bg-[#FFF8FA] rounded-2xl border border-[#F3C5D6] p-8 text-center text-xs text-[#5C3445]">
                 <AlertCircle className="w-8 h-8 text-[#C59B27] mx-auto mb-2" />
-                <p className="font-semibold text-sm text-[#271A22]">No encontramos reservas con ese dato.</p>
+                <p className="font-semibold text-sm text-[#2E1621]">No encontramos reservas con ese dato.</p>
                 <p className="mt-1">Verifica si el código está bien escrito o intenta con tu número celular.</p>
               </div>
             ) : (
               searchResults.map((apt) => (
                 <div
                   key={apt.id}
-                  className="bg-white rounded-2xl border border-[#FAD3DF] p-6 shadow-md space-y-4"
+                  className="bg-[#FFF8FA] rounded-2xl border border-[#F0BDD0] p-6 shadow-md space-y-4"
                 >
                   {/* Status Banner */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-[#F7E5EC]">
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-[#F3C5D6]">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#A67D1C]">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#9E7114]">
                         Código de Reserva
                       </span>
-                      <h3 className="font-mono text-xl font-bold text-[#271A22]">{apt.bookingCode}</h3>
+                      <h3 className="font-mono text-xl font-bold text-[#2E1621]">{apt.bookingCode}</h3>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -185,50 +178,50 @@ export const ClientReservationLookup: React.FC = () => {
                   {/* Grid of info */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
                     <div>
-                      <span className="text-[#8E7583] block">Servicio:</span>
-                      <strong className="text-[#271A22] text-sm font-semibold">{apt.serviceName}</strong>
+                      <span className="text-[#785163] block">Servicio:</span>
+                      <strong className="text-[#2E1621] text-sm font-semibold">{apt.serviceName}</strong>
                     </div>
 
                     <div>
-                      <span className="text-[#8E7583] block">Especialista:</span>
-                      <strong className="text-[#271A22] text-sm font-semibold">{apt.specialistName}</strong>
+                      <span className="text-[#785163] block">Especialista:</span>
+                      <strong className="text-[#2E1621] text-sm font-semibold">{apt.specialistName}</strong>
                     </div>
 
                     <div>
-                      <span className="text-[#8E7583] block">Fecha & Turno:</span>
-                      <strong className="text-[#271A22] text-sm font-semibold">
+                      <span className="text-[#785163] block">Fecha & Turno:</span>
+                      <strong className="text-[#2E1621] text-sm font-semibold">
                         {formatDateSpanish(apt.date)} · {apt.timeSlot}
                       </strong>
                     </div>
 
                     <div>
-                      <span className="text-[#8E7583] block">Cliente:</span>
-                      <span className="text-[#271A22] font-medium">{apt.clientName} ({apt.clientPhone})</span>
+                      <span className="text-[#785163] block">Cliente:</span>
+                      <span className="text-[#2E1621] font-medium">{apt.clientName} ({apt.clientPhone})</span>
                     </div>
 
                     <div>
-                      <span className="text-[#8E7583] block">Abono Registrado:</span>
+                      <span className="text-[#785163] block">Abono Registrado:</span>
                       <span className="font-bold text-emerald-700 tabular-nums">
                         {formatCOP(apt.depositAmount)} ({apt.paymentMethod.toUpperCase()})
                       </span>
                     </div>
 
                     <div>
-                      <span className="text-[#8E7583] block">Saldo Restante en Estudio:</span>
-                      <span className="font-bold text-[#271A22] tabular-nums">
+                      <span className="text-[#785163] block">Saldo Restante en Estudio:</span>
+                      <span className="font-bold text-[#2E1621] tabular-nums">
                         {formatCOP(apt.remainingAmount)}
                       </span>
                     </div>
                   </div>
 
                   {apt.notes && (
-                    <div className="p-3 bg-[#FFF9FA] rounded-lg text-xs text-[#725D6B] border border-[#FAD3DF]">
+                    <div className="p-3 bg-[#FCE8EF] rounded-lg text-xs text-[#5C3445] border border-[#F3C5D6]">
                       <strong>Notas del servicio:</strong> {apt.notes}
                     </div>
                   )}
 
                   {/* Action Buttons */}
-                  <div className="pt-3 border-t border-[#F7E5EC] flex flex-wrap items-center justify-between gap-3">
+                  <div className="pt-3 border-t border-[#F3C5D6] flex flex-wrap items-center justify-between gap-3">
                     <div className="flex gap-2">
                       <button
                         onClick={() => {
@@ -244,7 +237,7 @@ export const ClientReservationLookup: React.FC = () => {
                           });
                           window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
                         }}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#25D366] bg-[#E8FBF0] rounded-lg hover:bg-[#D4F6E3] transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#15803D] bg-[#E8FBF0] rounded-lg hover:bg-[#D4F6E3] transition-colors cursor-pointer"
                       >
                         <Share2 className="w-3.5 h-3.5" />
                         <span>Reenviar a WhatsApp</span>
@@ -252,7 +245,7 @@ export const ClientReservationLookup: React.FC = () => {
 
                       <button
                         onClick={() => window.print()}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#5A4552] bg-[#FDF2F4] rounded-lg hover:bg-[#FBE4ED] transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#5C3445] bg-[#FADCE6] rounded-lg hover:bg-[#F5C6D7] transition-colors cursor-pointer"
                       >
                         <Printer className="w-3.5 h-3.5" />
                         <span>Imprimir</span>
@@ -263,7 +256,7 @@ export const ClientReservationLookup: React.FC = () => {
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleOpenReschedule(apt)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#C59B27] bg-[#FCF9EE] border border-[#EEDFA0] rounded-lg hover:bg-[#F7EFCF] transition-colors cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#9E7114] bg-[#FCF9EE] border border-[#EEDFA0] rounded-lg hover:bg-[#F7EFCF] transition-colors cursor-pointer"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                           <span>Reagendar Turno</span>
@@ -271,7 +264,7 @@ export const ClientReservationLookup: React.FC = () => {
 
                         <button
                           onClick={() => handleCancel(apt.id, apt.bookingCode)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-rose-600 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 transition-colors cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-rose-700 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 transition-colors cursor-pointer"
                         >
                           <XCircle className="w-3.5 h-3.5" />
                           <span>Cancelar Cita</span>
@@ -287,17 +280,17 @@ export const ClientReservationLookup: React.FC = () => {
 
         {/* Reschedule Modal */}
         {reschedulingApt && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
-            <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#FAD3DF] space-y-4">
-              <h3 className="font-editorial text-2xl font-bold text-[#271A22]">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2E1621]/55 backdrop-blur-xs p-4">
+            <div className="bg-[#FFF8FA] rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#F3C5D6] space-y-4">
+              <h3 className="font-editorial text-2xl font-bold text-[#2E1621]">
                 Reagendar Cita {reschedulingApt.bookingCode}
               </h3>
-              <p className="text-xs text-[#725D6B]">
+              <p className="text-xs text-[#5C3445]">
                 Tu abono de {formatCOP(reschedulingApt.depositAmount)} se conserva intacto para tu nueva fecha.
               </p>
 
               <div>
-                <label className="block text-xs font-bold uppercase text-[#271A22] mb-1">
+                <label className="block text-xs font-bold uppercase text-[#2E1621] mb-1">
                   Nueva Fecha:
                 </label>
                 <input
@@ -305,12 +298,12 @@ export const ClientReservationLookup: React.FC = () => {
                   min={new Date().toISOString().split('T')[0]}
                   value={newDate}
                   onChange={(e) => setNewDate(e.target.value)}
-                  className="w-full p-2.5 text-xs rounded-lg border border-[#EACBD9] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+                  className="w-full p-2.5 text-xs rounded-lg bg-[#FFFBFD] border border-[#EBB8CB] focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase text-[#271A22] mb-1">
+                <label className="block text-xs font-bold uppercase text-[#2E1621] mb-1">
                   Nuevo Horario:
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -319,10 +312,10 @@ export const ClientReservationLookup: React.FC = () => {
                       key={slot}
                       type="button"
                       onClick={() => setNewSlot(slot)}
-                      className={`py-2 px-3 text-xs rounded-lg border font-semibold ${
+                      className={`py-2 px-3 text-xs rounded-lg border font-semibold cursor-pointer ${
                         newSlot === slot
                           ? 'bg-[#C59B27] text-white border-[#C59B27]'
-                          : 'bg-white text-[#271A22] border-[#EACBD9] hover:bg-[#FDF2F4]'
+                          : 'bg-[#FCE8EF] text-[#2E1621] border-[#EBB8CB] hover:bg-[#FAD4E1]'
                       }`}
                     >
                       {slot}
@@ -335,14 +328,14 @@ export const ClientReservationLookup: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setReschedulingApt(null)}
-                  className="flex-1 py-2.5 text-xs font-semibold text-[#725D6B] border border-[#EACBD9] rounded-lg"
+                  className="flex-1 py-2.5 text-xs font-semibold text-[#5C3445] bg-[#FCE4EC] border border-[#EBB8CB] rounded-lg cursor-pointer"
                 >
                   Volver
                 </button>
                 <button
                   type="button"
                   onClick={handleConfirmReschedule}
-                  className="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#C59B27] rounded-lg shadow-sm hover:bg-[#B58A1C]"
+                  className="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-[#C59B27] to-[#AD8218] rounded-lg shadow-sm hover:from-[#B58A1C] hover:to-[#976F12] cursor-pointer"
                 >
                   Confirmar Cambio
                 </button>
